@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SophiCar - 参数化建模</title>
+    <link rel="stylesheet" href="../实验与资源中心/sophicar/css/style.css">
+    <link rel="stylesheet" href="styles_副本.css">
+<style>
+    /* 覆盖实验中心的 .main 顶部内边距，使内容上移 */
+    .main{padding:2rem 0 2rem;}
+</style>
+</head>
+<body>
+    <!-- 统一实验与资源中心风格导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="#">SophiCar</a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link">首页</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">参数化建模</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">案例库</a></li>
+                    <li class="nav-item"><a href="../实验与资源中心/sophicar/index.html" class="nav-link">实验与资源中心</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">关于我们</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn" aria-label="语言">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </button>
+                <button class="action-btn" aria-label="用户">
+                    <!-- user icon -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 右侧悬浮按钮 -->
+    <div class="floating-actions">
+        <button id="btnChangeScene" class="action-btn action-btn-primary">更换场景</button>
+        <button id="btnResetView" class="action-btn action-btn-secondary">重置视图</button>
+    </div>
+
+    <!-- 遮罩和弹窗（默认隐藏，通过 CSS display:none 控制）-->
+    <div id="overlay" class="overlay"></div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>选择场景</h2>
+            <p>点击卡片进入对应场景</p>
+            <div class="scene-cards">
+                <div class="scene-card">
+                    <img src="images_副本/line-control-chassis.png" alt="线控底盘">
+                    <p>线控底盘</p>
+                </div>
+                <div class="scene-card">
+                    <img src="images_副本/educational-car.png" alt="教育小车">
+                    <p>教育小车</p>
+                </div>
+                <div class="scene-card">
+                    <img src="images_副本/navigation-car.png" alt="导航小车">
+                    <p>导航小车</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 主体 -->
+    <main class="main">
+        <!-- 主容器 -->
+    <div class="container">
+        <main class="main-content">
+            <!-- 参数设置区域 -->
+            <div class="parameter-section">
+                <div class="section-header">
+                    <h2>参数设置</h2>
+                </div>
+
+                <!-- 项目名输入 -->
+                <div class="project-name">
+                    <h3>项目名</h3>
+                    <div class="input-group">
+                        <input type="text" placeholder="请输入项目名">
+                        <p class="input-hint">项目名将用于保存记录与文件命名</p>
+                    </div>
+                </div>
+
+                <!-- 标签导航 -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active">车身结构</button>
+                    <button class="tab-btn">轮胎参数</button>
+                    <button class="tab-btn">附属结构</button>
+                    <button class="tab-btn">动力系统</button>
+                </div>
+
+                <!-- 参数控制组 -->
+                <div class="parameter-groups">
+                    <!-- 总长度 -->
+                    <div class="parameter-group">
+                        <label>总长度</label>
+                        <div class="control-group">
+                            <div class="slider-container">
+                                <input type="range" min="300" max="800" value="550" class="slider" oninput="updateValue(this)">
+                                <div class="value-display">550 mm</div>
+                            </div>
+                            <div class="recommendation">
+                                <p>推荐值：550mm</p>
+                                <button class="btn btn-sm btn-outline apply-recommendation" data-target="总长度">应用推荐</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 载物台宽度 -->
+                    <div class="parameter-group">
+                        <label>载物台宽度</label>
+                        <div class="control-group">
+                            <div class="slider-container">
+                                <input type="range" min="200" max="400" value="260" class="slider" oninput="updateValue(this)">
+                                <div class="value-display">260 mm</div>
+                            </div>
+                            <div class="recommendation">
+                                <p>推荐值：260mm</p>
+                                <button class="btn btn-sm btn-outline apply-recommendation" data-target="载物台宽度">应用推荐</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 前后桥宽度 -->
+                    <div class="parameter-group">
+                        <label>前后桥宽度</label>
+                        <div class="control-group">
+                            <div class="slider-container">
+                                <input type="range" min="250" max="400" value="300" class="slider" oninput="updateValue(this)">
+                                <div class="value-display">300 mm</div>
+                            </div>
+                            <div class="recommendation">
+                                <p>推荐值：300mm</p>
+                                <button class="btn btn-sm btn-outline apply-recommendation" data-target="前后桥宽度">应用推荐</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部分割线 -->
+                <div class="divider"></div>
+
+                <!-- 底部按钮 -->
+                <div class="footer-buttons">
+                    <button class="btn btn-secondary">保存参数</button>
+                    <button class="btn btn-primary">下载导出</button>
+                </div>
+            </div>
+
+            <!-- 场景展示区 -->
+            <div class="scene-display">
+                <img alt="场景" class="chassis-image" id="sceneImage" style="display:none">
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 更新滑块数值显示
+        function updateValue(slider) {
+            const display = slider.parentNode.querySelector('.value-display');
+            display.textContent = slider.value + ' mm';
+        }
+
+        // 应用推荐值
+        document.querySelectorAll('.apply-recommendation').forEach(button => {
+            button.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                let newValue = 0;
+                switch(target) {
+                    case '总长度': newValue = 550; break;
+                    case '载物台宽度': newValue = 260; break;
+                    case '前后桥宽度': newValue = 300; break;
+                }
+                const slider = this.closest('.control-group').querySelector('.slider');
+                slider.value = newValue;
+                updateValue(slider);
+            });
+        });
+
+        // 显示/隐藏弹窗
+        const overlay = document.getElementById('overlay');
+        const modal   = document.getElementById('modal');
+        // 页面加载默认显示弹窗
+        window.addEventListener('load', () => {
+            overlay.style.display = 'block';
+            modal.style.display   = 'block';
+        });
+        document.getElementById('btnChangeScene').addEventListener('click', () => {
+            overlay.style.display = 'block';
+            modal.style.display   = 'block';
+        });
+        // 点击卡片切换场景
+        document.querySelectorAll('.scene-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const img = card.querySelector('img');
+                const sceneImg = document.getElementById('sceneImage');
+                sceneImg.src   = img.src;
+                sceneImg.style.display = 'block';
+                overlay.style.display = 'none';
+                modal.style.display   = 'none';
+            });
+        });
+        overlay.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            modal.style.display   = 'none';
+        });
+    </script>
+</body>
+</html>

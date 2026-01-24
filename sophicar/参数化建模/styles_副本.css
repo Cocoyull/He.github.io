@@ -1,0 +1,383 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* 导航栏 */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #121212;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 遮罩层 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.47);
+    z-index: 999;
+    display: none;
+}
+
+/* 弹窗容器 */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 80%;
+    max-width: 800px;
+    display: none;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+    color: #aaa;
+    margin-bottom: 1.5rem;
+}
+
+.scene-cards {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.scene-card {
+    background: #2d2d2d;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.scene-card:hover {
+    background: #3a3a3a;
+    transform: translateY(-2px);
+}
+
+.scene-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.scene-card p {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-items a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.nav-items .active {
+    color: #007bff;
+    font-weight: 600;
+    position: relative;
+    left: 2px;          /* 右移 2px */
+}
+
+.icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* 右侧悬浮按钮容器 */
+.floating-actions {
+    position: fixed;
+    top: 110px;
+    right: 24px;
+    z-index: 1100; /* 高于遮罩与弹窗 */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 悬浮按钮通用样式 */
+.action-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    transition: opacity 0.15s ease;
+}
+.action-btn:hover {
+    opacity: 0.88;
+}
+.action-btn:active {
+    transform: translateY(1px);
+}
+
+.action-btn-primary {
+    background: #0d6efd;
+}
+
+.action-btn-secondary {
+    background: #6c757d;
+}
+
+.scene-display {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chassis-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* 主内容区 */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin-top: 80px;
+}
+
+/* 参数设置区域 */
+.parameter-section {
+    flex: 1;
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    margin: 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.header-buttons {
+    display: block;
+}
+
+/* 输入组 */
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #2d2d2d;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.input-hint {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.tab-navigation {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    max-width: 120px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tab-btn.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* 参数组 */
+.parameter-group {
+    margin-bottom: 1.5rem;
+}
+
+.parameter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ddd;
+    font-size: 0.95rem;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.slider {
+    width: 100px;
+    height: 8px;
+    border-radius: 4px;
+    background: #333;
+    outline: none;
+}
+
+.value-display {
+    width: 60px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.recommendation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.recommendation button {
+    padding: 0 0.4rem !important;
+    font-size: 0.8rem;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 底部分割线 */
+.divider {
+    height: 1px;
+    background: white;
+    margin: 1.5rem 0;
+}
+
+/* 底部按钮 */
+.footer-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-buttons button {
+    flex: 1;
+}
